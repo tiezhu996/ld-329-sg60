@@ -8,7 +8,7 @@ import (
 
 func Overview() model.Overview {
 	skills := repository.ListSkills()
-	needs := repository.ListNeeds()
+	needs := NeedSummaries("")
 	matches := repository.ListMatches()
 	appointments := repository.ListAppointments()
 	reviews := repository.ListReviews()
@@ -27,7 +27,6 @@ func Overview() model.Overview {
 }
 
 func Skills() []model.Skill             { return repository.ListSkills() }
-func Needs() []model.Need               { return repository.ListNeeds() }
 func Matches() []model.Match            { return repository.ListMatches() }
 func Appointments() []model.Appointment { return repository.ListAppointments() }
 func Reviews() []model.Review           { return repository.ListReviews() }

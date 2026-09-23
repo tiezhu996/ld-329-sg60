@@ -13,18 +13,6 @@ type Skill struct {
 	Portfolio   string   `json:"portfolio"`
 }
 
-type Need struct {
-	ID          int    `json:"id"`
-	Requester   string `json:"requester"`
-	Title       string `json:"title"`
-	Category    string `json:"category"`
-	Campus      string `json:"campus"`
-	ExpectTime  string `json:"expectTime"`
-	BudgetType  string `json:"budgetType"`
-	Description string `json:"description"`
-	Responses   int    `json:"responses"`
-}
-
 type Match struct {
 	ID             int      `json:"id"`
 	Provider       string   `json:"provider"`
@@ -76,7 +64,7 @@ type Overview struct {
 	Categories   []string       `json:"categories"`
 	Metrics      map[string]int `json:"metrics"`
 	Skills       []Skill        `json:"skills"`
-	Needs        []Need         `json:"needs"`
+	Needs        []NeedSummary  `json:"needs"`
 	Matches      []Match        `json:"matches"`
 	Appointments []Appointment  `json:"appointments"`
 	Reviews      []Review       `json:"reviews"`

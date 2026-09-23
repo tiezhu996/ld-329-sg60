@@ -19,6 +19,19 @@ body { margin: 0; background: #f6f7f9; color: #18212f; font-family: Inter, "Ping
 .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
 .profile-panel { display: grid; grid-template-columns: minmax(0, 1fr) 320px; align-items: center; gap: 16px; }
 .radar-chart { width: 100%; height: 280px; }
+.need-detail { display: grid; gap: 18px; }
+.need-detail h3 { margin: 0 0 10px; font-size: 16px; }
+.need-detail__head p { margin: 8px 0; line-height: 1.6; }
+.need-detail__footer { display: flex; justify-content: flex-end; border-top: 1px solid #e5e7eb; padding-top: 16px; }
+.queue-list { display: grid; gap: 10px; }
+.queue-entry { border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 14px; background: #fff; }
+.queue-entry--withdrawn { opacity: 0.6; background: #fafafa; }
+.queue-entry__head { display: flex; align-items: center; gap: 8px; }
+.queue-entry__time { margin-left: auto; }
+.queue-entry p { margin: 8px 0 4px; line-height: 1.6; }
+.queue-entry__actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px; }
+.response-form { display: grid; gap: 12px; }
+.response-form__slots { display: grid; gap: 4px; }
 @media (max-width: 900px) {
   .page-shell { padding: 16px; }
   .app-header, .profile-panel { grid-template-columns: 1fr; display: grid; }

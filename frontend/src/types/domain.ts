@@ -11,6 +11,10 @@ export interface Skill {
   portfolio: string;
 }
 
+export type NeedStatus = 'open' | 'closed';
+export type ResponseStatus = 'waiting' | 'interviewing' | 'withdrawn';
+export type MyQueueStatus = 'none' | ResponseStatus;
+
 export interface Need {
   id: number;
   requester: string;
@@ -20,7 +24,37 @@ export interface Need {
   expectTime: string;
   budgetType: string;
   description: string;
+  status: NeedStatus;
   responses: number;
+}
+
+export interface NeedSummary extends Need {
+  currentInterviewee: string;
+  waitingCount: number;
+  isPublisher: boolean;
+  myStatus: MyQueueStatus;
+  myPosition: number;
+}
+
+export interface NeedQueueEntry {
+  responseId: number;
+  position: number;
+  responder: string;
+  helpOffer: string;
+  visitSlots: string[];
+  status: ResponseStatus;
+  submittedAt: string;
+  isViewer: boolean;
+}
+
+export interface NeedDetail extends NeedSummary {
+  entries: NeedQueueEntry[];
+}
+
+export interface SubmitResponsePayload {
+  responder: string;
+  helpOffer: string;
+  visitSlots: string[];
 }
 
 export interface Match {
@@ -74,7 +108,7 @@ export interface Overview {
   categories: string[];
   metrics: Record<string, number>;
   skills: Skill[];
-  needs: Need[];
+  needs: NeedSummary[];
   matches: Match[];
   appointments: Appointment[];
   reviews: Review[];

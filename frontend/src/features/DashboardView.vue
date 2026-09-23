@@ -24,15 +24,7 @@
         </FeatureCard>
       </div>
 
-      <div class="panel">
-        <h2>需求浏览</h2>
-        <el-table :data="overview.needs" size="small">
-          <el-table-column prop="title" label="需求" min-width="170" />
-          <el-table-column prop="category" label="类别" width="82" />
-          <el-table-column prop="campus" label="校区" width="96" />
-          <el-table-column prop="responses" label="响应" width="72" sortable />
-        </el-table>
-      </div>
+      <NeedListPanel />
 
       <div class="panel">
         <h2>智能匹配</h2>
@@ -92,16 +84,21 @@ import AppHeader from '../components/AppHeader.vue';
 import FeatureCard from '../components/FeatureCard.vue';
 import MetricCard from '../components/MetricCard.vue';
 import RadarChart from '../components/RadarChart.vue';
+import NeedListPanel from './needs/NeedListPanel.vue';
 import { fetchOverview } from '../services/storage.service';
+import { useNeedsStore } from '../stores/needs.store';
 import type { Overview } from '../types/domain';
 
 const overview = ref<Overview | null>(null);
 const loading = ref(true);
 const error = ref('');
+const needsStore = useNeedsStore();
 
 onMounted(async () => {
   try {
     overview.value = await fetchOverview();
+    // 以当前登录用户（个人主页）身份展示“我的位置”，面板挂载后自行加载列表
+    needsStore.setViewer(overview.value.profile.name);
   } catch (err) {
     error.value = err instanceof Error ? err.message : '加载失败';
   } finally {

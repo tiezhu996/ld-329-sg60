@@ -20,6 +20,7 @@ docker compose up -d
 
 - 技能发布与管理：技能描述、熟练度、可交换时间段、回报类型和作品凭证。
 - 需求发布与浏览：按类别、校区、期望时间和响应数量查看求助需求。
+- 求助候选名单：响应者提交能帮的方式和可上门时段，按提交先后排队；发布人挑一位约谈，同一求助同时只安排一个约谈，约谈对象退出后由下一位自动接手；发布人关闭求助后名单停止；列表和详情展示我的位置、当前约谈人和轮候结果。
 - 智能匹配推荐：展示互补技能、匹配度、共同可用时间和推荐理由。
 - 交换预约与确认：记录双方确认状态、时间、地点和协商议程。
 - 评价与信用体系：评分、文字评价、信用分和信用等级用于推荐权重。
@@ -85,7 +86,12 @@ go run ./cmd/server
 - `GET /api/health`
 - `GET /api/dashboard/overview`
 - `GET /api/skills`
-- `GET /api/needs`
+- `GET /api/needs?viewer=姓名`（列表：响应数、当前约谈人、我的位置）
+- `GET /api/needs/:id?viewer=姓名`（详情：按提交先后排队的候选名单）
+- `POST /api/needs/:id/responses`（提交响应：能帮的方式 + 可上门时段）
+- `POST /api/needs/:id/responses/:responseId/interview`（发布人挑一位约谈）
+- `POST /api/needs/:id/responses/:responseId/withdraw`（响应者退出，约谈对象退出后由下一位自动接手）
+- `POST /api/needs/:id/close`（发布人关闭求助，候选名单停止）
 - `GET /api/matches`
 - `GET /api/appointments`
 - `GET /api/reviews`
