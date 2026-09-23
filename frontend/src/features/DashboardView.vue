@@ -24,14 +24,8 @@
         </FeatureCard>
       </div>
 
-      <div class="panel">
-        <h2>需求浏览</h2>
-        <el-table :data="overview.needs" size="small">
-          <el-table-column prop="title" label="需求" min-width="170" />
-          <el-table-column prop="category" label="类别" width="82" />
-          <el-table-column prop="campus" label="校区" width="96" />
-          <el-table-column prop="responses" label="响应" width="72" sortable />
-        </el-table>
+      <div class="panel panel--wide">
+        <NeedBoard :current-user="overview.profile.name" />
       </div>
 
       <div class="panel">
@@ -92,6 +86,7 @@ import AppHeader from '../components/AppHeader.vue';
 import FeatureCard from '../components/FeatureCard.vue';
 import MetricCard from '../components/MetricCard.vue';
 import RadarChart from '../components/RadarChart.vue';
+import NeedBoard from './needs/NeedBoard.vue';
 import { fetchOverview } from '../services/storage.service';
 import type { Overview } from '../types/domain';
 

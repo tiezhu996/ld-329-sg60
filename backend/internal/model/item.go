@@ -23,6 +23,7 @@ type Need struct {
 	BudgetType  string `json:"budgetType"`
 	Description string `json:"description"`
 	Responses   int    `json:"responses"`
+	Status      string `json:"status"`
 }
 
 type Match struct {

@@ -13,7 +13,6 @@ func Health(c *gin.Context) {
 }
 func Overview(c *gin.Context)     { c.JSON(http.StatusOK, service.Overview()) }
 func Skills(c *gin.Context)       { c.JSON(http.StatusOK, service.Skills()) }
-func Needs(c *gin.Context)        { c.JSON(http.StatusOK, service.Needs()) }
 func Matches(c *gin.Context)      { c.JSON(http.StatusOK, service.Matches()) }
 func Appointments(c *gin.Context) { c.JSON(http.StatusOK, service.Appointments()) }
 func Reviews(c *gin.Context)      { c.JSON(http.StatusOK, service.Reviews()) }

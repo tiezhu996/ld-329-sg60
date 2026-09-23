@@ -19,7 +19,7 @@ docker compose up -d
 ## 主要功能
 
 - 技能发布与管理：技能描述、熟练度、可交换时间段、回报类型和作品凭证。
-- 需求发布与浏览：按类别、校区、期望时间和响应数量查看求助需求。
+- 技能求助与候选名单：响应者提交能帮的方式和可上门时段，按提交先后排队；发布人从名单中挑一位约谈，同一求助同时只安排一位约谈，其余人继续等待；约谈对象撤回后由下一位自动接手，约谈开始前响应者可退出，发布人关闭求助后名单停止；列表与详情展示我的位置、当前约谈人和轮候结果。
 - 智能匹配推荐：展示互补技能、匹配度、共同可用时间和推荐理由。
 - 交换预约与确认：记录双方确认状态、时间、地点和协商议程。
 - 评价与信用体系：评分、文字评价、信用分和信用等级用于推荐权重。
@@ -63,15 +63,16 @@ go run ./cmd/server
 ├── frontend
 │   ├── src/components
 │   ├── src/features
+│   │   └── needs            # 技能求助：名单列表、详情抽屉、响应表单
 │   ├── src/services
 │   ├── src/types
 │   ├── Dockerfile
 │   └── nginx.conf
 ├── backend
 │   ├── cmd/server
-│   ├── internal/controller
-│   ├── internal/repository
-│   ├── internal/service
+│   ├── internal/controller  # need_queue.go 为求助队列接口
+│   ├── internal/repository  # need_queue_store.go 为名单状态存储
+│   ├── internal/service     # need_queue.go 为排队/约谈/关闭业务逻辑
 │   └── Dockerfile
 ├── database
 │   └── init.sql
@@ -85,7 +86,12 @@ go run ./cmd/server
 - `GET /api/health`
 - `GET /api/dashboard/overview`
 - `GET /api/skills`
-- `GET /api/needs`
+- `GET /api/needs?user=<姓名>`：求助列表，含当前约谈人与我的轮候信息
+- `GET /api/needs/:id?user=<姓名>`：求助详情与完整候选名单
+- `POST /api/needs/:id/responses`：提交响应（能帮的方式 + 可上门时段），按提交先后入队
+- `POST /api/needs/:id/pick`：发布人从名单中挑一位约谈（同时仅一位）
+- `POST /api/needs/:id/exit`：响应者退出排队 / 约谈对象撤回（下一位自动接手）
+- `POST /api/needs/:id/close`：发布人关闭求助，名单停止变动
 - `GET /api/matches`
 - `GET /api/appointments`
 - `GET /api/reviews`

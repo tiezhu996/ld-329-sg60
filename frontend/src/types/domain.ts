@@ -21,6 +21,63 @@ export interface Need {
   budgetType: string;
   description: string;
   responses: number;
+  status: NeedStatus;
+}
+
+export type NeedStatus = 'open' | 'closed';
+
+export type ResponseStatus = 'waiting' | 'interviewing' | 'withdrawn' | 'exited' | 'closed';
+
+export interface NeedResponseEntry {
+  id: number;
+  needId: number;
+  responder: string;
+  helpMethod: string;
+  timeSlots: string[];
+  status: ResponseStatus;
+  statusLabel: string;
+  position: number;
+  submittedAt: string;
+  mine: boolean;
+}
+
+export interface ViewerQueueInfo {
+  responseId: number;
+  position: number;
+  status: ResponseStatus;
+  statusLabel: string;
+  aheadCount: number;
+  result: string;
+}
+
+export interface NeedSummary {
+  id: number;
+  requester: string;
+  title: string;
+  category: string;
+  campus: string;
+  expectTime: string;
+  budgetType: string;
+  description: string;
+  responses: number;
+  status: NeedStatus;
+  statusLabel: string;
+  responseCount: number;
+  waitingCount: number;
+  currentInterview: string;
+  myQueue: ViewerQueueInfo | null;
+}
+
+export interface NeedDetail extends NeedSummary {
+  queue: NeedResponseEntry[];
+  canRespond: boolean;
+  canPick: boolean;
+  canClose: boolean;
+}
+
+export interface SubmitResponsePayload {
+  helpMethod: string;
+  timeSlots: string[];
 }
 
 export interface Match {

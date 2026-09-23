@@ -11,7 +11,15 @@ func Register(r *gin.Engine) {
 	api.GET("/health", controller.Health)
 	api.GET("/dashboard/overview", controller.Overview)
 	api.GET("/skills", controller.Skills)
-	api.GET("/needs", controller.Needs)
+
+	// 技能求助与候选名单
+	api.GET("/needs", controller.NeedSummaries)
+	api.GET("/needs/:id", controller.NeedDetail)
+	api.POST("/needs/:id/responses", controller.SubmitNeedResponse)
+	api.POST("/needs/:id/pick", controller.PickNeedCandidate)
+	api.POST("/needs/:id/exit", controller.ExitNeedResponse)
+	api.POST("/needs/:id/close", controller.CloseNeed)
+
 	api.GET("/matches", controller.Matches)
 	api.GET("/appointments", controller.Appointments)
 	api.GET("/reviews", controller.Reviews)
